@@ -1,0 +1,429 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0", 
+      "title": "Client List API",
+      "description": "Client managment",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:8080",
+    "basePath": "",
+    "tags": [
+      {
+        "name": "ClientList",
+        "description": "Client list managment"
+      }
+    ],
+    "schemes": [
+        "http"
+    ],
+    
+
+    "paths": {
+      "/client": {
+        "post": {
+          "tags": [
+            "client"
+          ],
+          "summary": "Create a new client ",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Client  to create",
+              "schema":{
+                "$ref":"#/definitions/client"
+            }
+          }   
+          ],
+         
+          "responses": {
+            "200": {
+              "description": "Client is created",
+              "schema": {
+                "$ref": "#/definitions/client"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "client"
+          ],
+          "summary": "Get a list of client",
+          "responses": {
+            "200": {
+              "description": "Client List",
+              "schema": {
+                "$ref": "#/definitions/clients"
+              }
+            }
+          }
+        }
+      },
+
+
+      "/client/{clientId}": { 
+        
+        
+        "delete": {
+            "tags":[
+                "client"
+            ],
+          "summary": "Remove client",
+          "description": "Remove client by ID",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "clientId",
+              "in": "path",
+              "required": true,
+              "description": "ID of client that we want to find",
+              "type": "string"
+              
+            } 
+          ],
+
+          "responses": {
+            "200": {
+              "description": "Client is removed",
+              "schema": {
+                "type": "object",
+                "properties":{
+                  "success":{
+                    "type":"boolean"
+                  }
+                }
+
+              }
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Client not found"
+            }
+          
+        }
+      },
+        "put": {
+            "tags": [
+                "client"
+              ],
+          "summary": "Update an existing client by given ID",
+          "consumes": [
+            "application/json"
+           
+          ],
+          "produces": [
+            "application/json"
+           
+          ],
+          "parameters": [
+            {
+              "name": "clientId",
+              "in": "path",
+              "required": true,
+              "description": "ID of client that we want to find",
+              "type": "string"
+              
+            } ,
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Updated  client object ",
+              "required":true,
+              "schema": {
+                "$ref": "#/definitions/client"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Client is updated",
+              "schema": {
+                "$ref": "#/definitions/client"
+              }
+            }
+          }
+        },"400": {
+          "description": "Invalid ID supplied"
+        },
+        "404": {
+          "description": "Client not found"
+        }
+      
+      },
+
+
+
+
+      "/provider": {
+        "post": {
+          "tags": [
+            "provider"
+          ],
+          "summary": "Add a new provider to the store",
+          "consumes": [
+            "application/json"
+            
+          ],
+          "produces": [
+            "application/json"
+            
+          ],
+
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Provider that we want to create",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/provider"
+              }
+            }
+          ],
+          
+          "responses": {
+            "200": {
+              "description": "Provider is created",
+              "schema": {
+                "$ref": "#/definitions/provider"
+              }
+            }
+          }
+        },
+
+
+        "get": {
+          "tags": [
+            "provider"
+          ],
+          "summary": "Get all providers from the store",
+          "responses": {
+            "200": {
+              "description": "Providers list",
+              "schema": {
+                "$ref": "#/definitions/providers"
+              }
+            }
+          }
+        }
+      },
+
+
+      "/provider/{providerId}": { 
+        
+        "delete": {
+          "tags": [
+            "provider"
+          ],
+          "summary": "Delete provider with given ID",
+          "produces": [
+            "application/json"
+            
+          ],
+          "parameters": [
+            {
+              "name": "providerId",
+              "in": "path",
+              "required": true,
+              "description": "ID of provider that we want to find",
+              "type": "string"
+              
+            } 
+           
+          ],
+
+
+          "responses": {
+            "200": {
+              "description": "Provider is deleted",
+              "schema": {
+                "type": "object",
+                "properties":{
+                  "success":{
+                    "type":"boolean"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Provider not found"
+            }
+          }
+        },
+
+        "put": {
+          "tags": [
+              "provider"
+            ],
+        "summary": "Update an existing provider by given ID",
+        "consumes": [
+          "application/json"
+         
+        ],
+        "produces": [
+          "application/json"
+         
+        ],
+        "parameters": [
+          {
+            "name": "providerId",
+            "in": "path",
+            "required": true,
+            "description": "ID of provider that we want to find",
+            "type": "string"
+            
+          } ,
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated  provider object ",
+            "required":true,
+            "schema": {
+              "$ref": "#/definitions/provider"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Provider is updated",
+            "schema": {
+              "$ref": "#/definitions/provider"
+            }
+          
+        
+      },"400": {
+        "description": "Invalid ID supplied"
+      },
+      "404": {
+        "description": "Provider not found"
+      }
+        }
+       } }
+    },
+
+
+    "definitions":{ 
+      "client": {
+        "type":"object",
+        "required": [
+          "name",
+          "email",
+          "phone"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          
+          "phone": {
+            "type": "integer"
+          },
+          "providers":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "$ref": "#/definitions/provider"
+            }
+
+          }
+        }
+      },
+      "clients":{
+        "type": "array",
+        "items":{
+          "type":"object",
+          "$ref": "#/definitions/client"
+
+        }
+      },
+      
+      "provider": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties":{
+          "_id":{
+            "type":"string",
+            "format": "int64"
+          },
+          "name":{
+            "type":"string",
+            "uniqueItems": true
+          }
+        } 
+      },
+       
+      "providers":{
+        "type": "array",
+        "items":{
+          "type":"object",
+          "$ref": "#/definitions/provider"
+  
+        }
+      }
+    }
+  } 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
