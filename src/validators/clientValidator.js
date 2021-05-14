@@ -32,8 +32,7 @@ const validatorMiddleware = (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     return res.status(400).json({
-      error: result.array(),
-      message: "Validation error",
+      error: { error: result.array(), message: "Validation error" },
     });
   }
   next();

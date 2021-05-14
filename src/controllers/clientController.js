@@ -52,9 +52,9 @@ class ClientController {
   static async create(req, res, next) {
     try {
       const { name, email, phone } = req.body;
-      // if (!name || !email || !phone) {
-      //   throw errorConfig.badRequest;
-      // }
+      if (!name || !email || !phone) {
+        throw errorConfig.badRequest;
+      }
 
       const client = await Client.create(req.body);
       return res.json(client);
@@ -67,13 +67,13 @@ class ClientController {
     try {
       const { name, email, phone } = req.body;
       console.log(name, email, phone);
-      // if (!name || !email || !phone) {
-      //   throw errorConfig.badRequest;
-      // }
+      if (!name || !email || !phone) {
+        throw errorConfig.badRequest;
+      }
       const client = await Client.findByIdAndUpdate(req.params.id, req.body);
-      // if (!client) {
-      //   throw errorConfig.clientNotFound;
-      // }
+      if (!client) {
+        throw errorConfig.clientNotFound;
+      }
       console.log(client);
       const updated = await Client.findById(req.params.id);
       return res.status(200).send(updated);
