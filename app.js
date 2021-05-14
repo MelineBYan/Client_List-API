@@ -36,6 +36,13 @@ app.use("/", indexRouter);
 app.use("/client", clientRouter);
 app.use("/provider", providerRouter);
 
-require("./errorHandler")(app);
+app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+  res
+    .status(500)
+    .json({ error: [{ msg: "Something went wrong please try again later" }] });
+});
 
 module.exports = app;

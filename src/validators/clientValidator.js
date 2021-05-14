@@ -1,6 +1,4 @@
 const { body, validationResult } = require("express-validator");
-const errorConfig = require("../../config/error.config");
-const Client = require("../models/clients.model");
 
 const clientValidator = [
   body("name")
@@ -22,18 +20,17 @@ const clientValidator = [
 
   body("email")
     .notEmpty()
-    .withMessage("Email cannot be empty!")
-    .isEmail()
-    .withMessage("Must be Email !")
+    .withMessage("Email is required!")
+    .normalizeEmail()
     .trim()
-    .normalizeEmail(),
+    .isEmail()
+    .withMessage("Invalid email"),
 ];
 const validatorMiddleware = (req, res, next) => {
   const result = validationResult(req);
+
   if (!result.isEmpty()) {
-    return res.status(400).json({
-      error: { error: result.array(), message: "Validation error" },
-    });
+    return res.status(400).json({ error: result.array() });
   }
   next();
 };

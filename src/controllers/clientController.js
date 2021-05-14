@@ -1,4 +1,3 @@
-const errorConfig = require("../../config/error.config");
 const Client = require("../models/clients.model");
 
 class ClientController {
@@ -41,10 +40,14 @@ class ClientController {
         .sort(sort)
         .populate({ path: "providers" });
 
-      if (!clients) throw errorConfig.clientNotFound;
+      if (!clients) {
+        return res
+          .status(404)
+          .json({ error: [{ msg: "Missing required fields" }] });
+      }
       return res.json({ clients });
     } catch (err) {
-      next();
+      next(err);
     }
   }
 
@@ -53,7 +56,9 @@ class ClientController {
     try {
       const { name, email, phone } = req.body;
       if (!name || !email || !phone) {
-        throw errorConfig.badRequest;
+        return res
+          .status(400)
+          .json({ error: [{ msg: "Missing required fields" }] });
       }
 
       const client = await Client.create(req.body);
@@ -66,15 +71,18 @@ class ClientController {
   static async update(req, res, next) {
     try {
       const { name, email, phone } = req.body;
-      console.log(name, email, phone);
       if (!name || !email || !phone) {
-        throw errorConfig.badRequest;
+        return res
+          .status(400)
+          .json({ error: [{ msg: "Missing required fields" }] });
       }
       const client = await Client.findByIdAndUpdate(req.params.id, req.body);
       if (!client) {
-        throw errorConfig.clientNotFound;
+        return res
+          .status(404)
+          .json({ error: [{ msg: "Client is not found" }] });
       }
-      console.log(client);
+
       const updated = await Client.findById(req.params.id);
       return res.status(200).send(updated);
     } catch (err) {
@@ -88,7 +96,9 @@ class ClientController {
       const client = await Client.findByIdAndRemove(req.params.id);
 
       if (!client) {
-        throw errorConfig.nothingToRemove;
+        return res
+          .status(404)
+          .json({ error: [{ msg: "There is nothing to remove" }] });
       }
 
       return res.status(200).json(client);
