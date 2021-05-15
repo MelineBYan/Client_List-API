@@ -67,6 +67,7 @@ class ClientController {
       next(err);
     }
   }
+
   //update client by Id
   static async update(req, res, next) {
     try {

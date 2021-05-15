@@ -9,7 +9,8 @@ You will need node and npm installed globally on your machine.
 Node js Installation
 
 official Node.js website
-npm might need it git
+
+npm might need git
 
 ###Database Setup (Linux)
 

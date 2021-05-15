@@ -40,9 +40,7 @@ app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  res
-    .status(500)
-    .json({ error: [{ msg: "Something went wrong please try again later" }] });
+  res.status(500).json({ error: [{ msg: "Something went wrong" }] });
 });
 
 module.exports = app;
