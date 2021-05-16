@@ -45,7 +45,7 @@ class ClientController {
           .status(404)
           .json({ error: [{ msg: "Missing required fields" }] });
       }
-      return res.json({ clients });
+      return res.status(200).json({ clients });
     } catch (err) {
       next(err);
     }
@@ -62,7 +62,7 @@ class ClientController {
       }
 
       const client = await Client.create(req.body);
-      return res.json(client);
+      return res.status(200).json(client);
     } catch (err) {
       next(err);
     }
@@ -85,7 +85,7 @@ class ClientController {
       }
 
       const updated = await Client.findById(req.params.id);
-      return res.status(200).send(updated);
+      return res.status(200).json(updated);
     } catch (err) {
       next(err);
     }

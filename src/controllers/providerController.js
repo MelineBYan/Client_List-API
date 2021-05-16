@@ -5,7 +5,7 @@ class ProviderController {
   static async getAll(req, res, next) {
     try {
       const info = await Provider.find();
-      return res.json({ providers: info });
+      return res.status(200).json({ providers: info });
     } catch (err) {
       next(err);
     }
@@ -21,7 +21,7 @@ class ProviderController {
       }
       const provider = await Provider.create(req.body);
 
-      return res.json(provider);
+      return res.status(200).json(provider);
     } catch (err) {
       next(err);
     }
@@ -68,7 +68,7 @@ class ProviderController {
           .status(404)
           .json({ error: [{ msg: "There is nothing to remove" }] });
       }
-      return res.json(provider);
+      return res.status(200).json(provider);
     } catch (err) {
       next(err);
     }

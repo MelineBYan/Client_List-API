@@ -9,14 +9,6 @@ const clientValidator = [
     .isLength({ max: 50 })
     .withMessage("Must be less than 50 character")
     .trim(),
-  body("phone")
-    .notEmpty()
-    .withMessage("Phone number cannot be empty!")
-    .matches(/\d/)
-    .withMessage("Must contain a number")
-    .isMobilePhone()
-    .withMessage("Invalid mobile phone")
-    .trim(),
 
   body("email")
     .notEmpty()
@@ -25,6 +17,14 @@ const clientValidator = [
     .trim()
     .isEmail()
     .withMessage("Invalid email"),
+  body("phone")
+    .notEmpty()
+    .withMessage("Phone number cannot be empty!")
+    .matches(/\d/)
+    .withMessage("Must contain a number")
+    .isMobilePhone()
+    .withMessage("Invalid mobile phone")
+    .trim(),
 ];
 const validatorMiddleware = (req, res, next) => {
   const result = validationResult(req);

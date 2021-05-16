@@ -8,9 +8,9 @@ You will need node and npm installed globally on your machine.
 
 Node js Installation
 
-official Node.js website
+You can find more information about the installation on the [official Node.js website](https://nodejs.org/) and the [official NPM website](https://npmjs.org/)
 
-npm might need git
+npm might need [git](https://git-scm.com/)).
 
 ###Database Setup (Linux)
 
@@ -19,7 +19,9 @@ Start the MongoDb service sudo service mongodb restart
 ###Database Setup (Windows)
 
 Download and install MongoDB http://www.mongodb.org/downloads
+
 Create the following folder C:\data\db
+
 If MongoDb has not been installed as a service run the MonogoDB demon mongod.exe
 
 ## Project installation and usage

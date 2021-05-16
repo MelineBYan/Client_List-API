@@ -135,7 +135,7 @@
               "name": "clientId",
               "in": "path",
               "required": true,
-              "description": "ID of client that we want to find",
+              "description": "ID of client that we want to update",
               "type": "string"
               
             } ,
