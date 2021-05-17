@@ -40,6 +40,7 @@
               "in": "body",
               "name": "body",
               "description": "Client  to create",
+              "required": true,
               "schema":{
                 "$ref":"#/definitions/client"
             }
@@ -346,10 +347,9 @@
           },
           "providers":{
             "type":"array",
-            "items":{
-              "type":"object",
-              "$ref": "#/definitions/provider"
-            }
+           
+              "$ref": "#/definitions/providers"
+            
 
           }
         }

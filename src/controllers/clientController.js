@@ -43,7 +43,7 @@ class ClientController {
       if (!clients) {
         return res
           .status(404)
-          .json({ error: [{ msg: "Missing required fields" }] });
+          .json({ error: [{ msg: "There are no clients" }] });
       }
       return res.status(200).json({ clients });
     } catch (err) {
@@ -61,7 +61,13 @@ class ClientController {
           .json({ error: [{ msg: "Missing required fields" }] });
       }
 
-      const client = await Client.create(req.body);
+      const providers = req.body.providers.map((p) => p._id);
+
+      let client = await Client.create({ ...req.body, providers });
+      client = await Client.findById(client._id).populate({
+        path: "providers",
+      });
+
       return res.status(200).json(client);
     } catch (err) {
       next(err);
@@ -77,14 +83,22 @@ class ClientController {
           .status(400)
           .json({ error: [{ msg: "Missing required fields" }] });
       }
-      const client = await Client.findByIdAndUpdate(req.params.id, req.body);
+
+      const providers = req.body.providers.map((p) => p._id);
+      let client = await Client.findByIdAndUpdate(req.params.id, {
+        ...req.body,
+        providers,
+      });
+
       if (!client) {
         return res
           .status(404)
           .json({ error: [{ msg: "Client is not found" }] });
       }
 
-      const updated = await Client.findById(req.params.id);
+      const updated = await Client.findById(req.params.id).populate({
+        path: "providers",
+      });
       return res.status(200).json(updated);
     } catch (err) {
       next(err);
@@ -102,7 +116,7 @@ class ClientController {
           .json({ error: [{ msg: "There is nothing to remove" }] });
       }
 
-      return res.status(200).json(client);
+      return res.status(200).json({ success: "true" });
     } catch (err) {
       next(err);
     }
