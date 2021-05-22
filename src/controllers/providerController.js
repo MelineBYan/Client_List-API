@@ -1,4 +1,5 @@
 const Provider = require("../models/providers.model");
+const mongoose = require("mongoose");
 
 class ProviderController {
   //get providers
@@ -31,12 +32,10 @@ class ProviderController {
 
   static async update(req, res, next) {
     try {
-      if (!req.body) {
-        return res
-          .status(404)
-          .json({ error: [{ msg: "There is nothing to remove" }] });
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({ error: [{ msg: "Provider not found" }] });
       }
-      if (!req.body.name) {
+      if (!req.body || !req.body.name) {
         return res
           .status(404)
           .json({ error: [{ msg: "There is nothing to remove" }] });
@@ -47,9 +46,7 @@ class ProviderController {
         req.body
       );
       if (!provider) {
-        return res
-          .status(404)
-          .json({ error: [{ msg: "There is nothing to remove" }] });
+        return res.status(404).json({ error: [{ msg: "Provider not found" }] });
       }
       const updated = await Provider.findById(req.params.id);
       return res.status(200).json(updated);
@@ -62,13 +59,14 @@ class ProviderController {
 
   static async remove(req, res, next) {
     try {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({ error: [{ msg: "Provider not found" }] });
+      }
       const provider = await Provider.findByIdAndRemove(req.params.id);
       if (!provider) {
-        return res
-          .status(404)
-          .json({ error: [{ msg: "There is nothing to remove" }] });
+        return res.status(404).json({ error: [{ msg: "Provider not found" }] });
       }
-      return res.status(200).json(provider);
+      return res.status(200).json({ success: "true" });
     } catch (err) {
       next(err);
     }

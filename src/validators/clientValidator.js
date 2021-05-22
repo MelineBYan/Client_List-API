@@ -5,9 +5,9 @@ const clientValidator = [
     .notEmpty()
     .withMessage("Name cannot be empty !")
     .isLength({ min: 1 })
-    .withMessage("Must be at least 1 chars long")
+    .withMessage("Name must be at least 1 chars long")
     .isLength({ max: 50 })
-    .withMessage("Must be less than 50 character")
+    .withMessage("Name must be less than 50 character")
     .trim(),
 
   body("email")
@@ -21,7 +21,7 @@ const clientValidator = [
     .notEmpty()
     .withMessage("Phone number cannot be empty!")
     .matches(/\d/)
-    .withMessage("Must contain a number")
+    .withMessage("Phone must contain a number")
     .isMobilePhone()
     .withMessage("Invalid mobile phone")
     .trim(),

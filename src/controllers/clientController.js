@@ -1,4 +1,6 @@
 const Client = require("../models/clients.model");
+const Provider = require("../models/providers.model");
+const mongoose = require("mongoose");
 
 class ClientController {
   //get clients
@@ -61,6 +63,19 @@ class ClientController {
           .json({ error: [{ msg: "Missing required fields" }] });
       }
 
+      req.body.providers.forEach(async (p) => {
+        try {
+          const prov = await Provider.findById(p._id);
+          if (!prov || prov.name !== p.name) {
+            return res
+              .status(404)
+              .json({ error: [{ msg: "Provider not found" }] });
+          }
+        } catch (err) {
+          next(err);
+        }
+      });
+
       const providers = req.body.providers.map((p) => p._id);
 
       let client = await Client.create({ ...req.body, providers });
@@ -77,12 +92,27 @@ class ClientController {
   //update client by Id
   static async update(req, res, next) {
     try {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({ error: [{ msg: "Client not found" }] });
+      }
       const { name, email, phone } = req.body;
       if (!name || !email || !phone) {
         return res
           .status(400)
           .json({ error: [{ msg: "Missing required fields" }] });
       }
+      req.body.providers.forEach(async (p) => {
+        try {
+          const prov = await Provider.findById(p._id);
+          if (!prov || prov.name !== p.name) {
+            return res
+              .status(404)
+              .json({ error: [{ msg: "Provider not found" }] });
+          }
+        } catch (err) {
+          next(err);
+        }
+      });
 
       const providers = req.body.providers.map((p) => p._id);
       let client = await Client.findByIdAndUpdate(req.params.id, {
@@ -108,6 +138,9 @@ class ClientController {
   //remove client by Id
   static async remove(req, res, next) {
     try {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({ error: [{ msg: "Client not found" }] });
+      }
       const client = await Client.findByIdAndRemove(req.params.id);
 
       if (!client) {

@@ -37,15 +37,16 @@ app.use("/client", clientRouter);
 app.use("/provider", providerRouter);
 
 app.use((err, req, res, next) => {
-  if (res.headersSent) {
-    return next(err);
-  } else if (err.code && err.code == 11000) {
+  if (err.code && err.code == 11000) {
     const field = Object.keys(err.keyValue);
-    console.log(field);
     const code = 409;
     const error = `${field} has already been taken`;
-    res.status(code).json({ error: [{ msg: error }] });
+    return res.status(code).json({ error: [{ msg: error }] });
   }
+  if (err.name === "CastError") {
+    return res.json({ error: [{ msg: `Invalid ${err.path} : ${err.value}` }] });
+  }
+  // console.log(err);
   res.status(500).json({ error: [{ msg: "Something went wrong" }] });
 });
 
