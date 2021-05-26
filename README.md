@@ -26,7 +26,7 @@ If MongoDb has not been installed as a service run the MonogoDB demon mongod.exe
 
 ## Project installation and usage
 
-    $ git clone https://github.com/MelineBYan/Client_list_API
+    $ git clone https://github.com/MelineBYan/Client_List-API.git
     $ npm install
 
 ###Create environment:
