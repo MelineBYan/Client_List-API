@@ -37,3 +37,7 @@ Remove `.sample` extension from configuration files located in `/config/env/`
 ## Running the project
 
     $ npm start
+
+## Swagger
+
+Swagger documentation http://localhost:8080/api-documentation/
