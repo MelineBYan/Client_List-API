@@ -18,7 +18,7 @@ class ProviderController {
       if (!req.body.name) {
         return res
           .status(404)
-          .json({ error: [{ msg: "There is nothing to remove" }] });
+          .json({ error: [{ msg: "Missing required fields" }] });
       }
       const provider = await Provider.create(req.body);
 
@@ -38,7 +38,7 @@ class ProviderController {
       if (!req.body || !req.body.name) {
         return res
           .status(404)
-          .json({ error: [{ msg: "There is nothing to remove" }] });
+          .json({ error: [{ msg: "There is nothing to update" }] });
       }
 
       const provider = await Provider.findByIdAndUpdate(

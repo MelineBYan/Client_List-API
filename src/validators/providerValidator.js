@@ -1,10 +1,10 @@
-const { check, validationResult } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 const providerValidator = [
-  check("name")
+  body("name")
     .notEmpty()
-    .withMessage("Name is Required !")
+    .withMessage("Name is required !")
     .isLength({ min: 1 })
-    .withMessage("must be at least 1 chars long")
+    .withMessage("Must be at least 1 chars long")
     .isLength({ max: 50 })
     .trim(),
 ];

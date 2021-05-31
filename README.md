@@ -10,7 +10,7 @@ Node js Installation
 
 You can find more information about the installation on the [official Node.js website](https://nodejs.org/) and the [official NPM website](https://npmjs.org/)
 
-npm might need [git](https://git-scm.com/)).
+npm might need [git](https://git-scm.com/).
 
 ###Database Setup (Linux)
 

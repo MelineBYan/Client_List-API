@@ -65,7 +65,11 @@ class ClientController {
 
       req.body.providers.forEach(async (p) => {
         try {
+          if (!mongoose.Types.ObjectId.isValid(p._id)) {
+            return res.status(404).json({ error: [{ msg: "Invalid id" }] });
+          }
           const prov = await Provider.findById(p._id);
+
           if (!prov || prov.name !== p.name) {
             return res
               .status(404)
@@ -93,7 +97,7 @@ class ClientController {
   static async update(req, res, next) {
     try {
       if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        return res.status(404).json({ error: [{ msg: "Client not found" }] });
+        return res.status(404).json({ error: [{ msg: "Invalid id" }] });
       }
       const { name, email, phone } = req.body;
       if (!name || !email || !phone) {
@@ -103,6 +107,9 @@ class ClientController {
       }
       req.body.providers.forEach(async (p) => {
         try {
+          if (!mongoose.Types.ObjectId.isValid(p._id)) {
+            return res.status(404).json({ error: [{ msg: "Invalid id" }] });
+          }
           const prov = await Provider.findById(p._id);
           if (!prov || prov.name !== p.name) {
             return res
@@ -139,7 +146,7 @@ class ClientController {
   static async remove(req, res, next) {
     try {
       if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        return res.status(404).json({ error: [{ msg: "Client not found" }] });
+        return res.status(404).json({ error: [{ msg: "Invalid id" }] });
       }
       const client = await Client.findByIdAndRemove(req.params.id);
 

@@ -1,1 +1,12 @@
-node_modules/
+  
+.DS_Store
+node_modules/*
+uploads/*
+temp/*
+*/.idea
+*/.vscode
+/.history
+/config/env/*.env
+*package-lock.json
+*nodemon.json
+*.bak

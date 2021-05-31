@@ -1,5 +1,5 @@
 const app = require("./app");
-const debug = require("debug")("node-chat:server");
+const debug = require("debug")("api");
 const http = require("http");
 require("dotenv").config();
 const connection = require("./db_connection");

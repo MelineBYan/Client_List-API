@@ -43,10 +43,7 @@ app.use((err, req, res, next) => {
     const error = `${field} has already been taken`;
     return res.status(code).json({ error: [{ msg: error }] });
   }
-  if (err.name === "CastError") {
-    return res.json({ error: [{ msg: `Invalid ${err.path} : ${err.value}` }] });
-  }
-  // console.log(err);
+
   res.status(500).json({ error: [{ msg: "Something went wrong" }] });
 });
 
