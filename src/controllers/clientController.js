@@ -111,7 +111,7 @@ class ClientController {
             return res.status(404).json({ error: [{ msg: "Invalid id" }] });
           }
           const prov = await Provider.findById(p._id);
-          if (!prov || prov.name !== p.name) {
+          if (!prov) {
             return res
               .status(404)
               .json({ error: [{ msg: "Provider not found" }] });

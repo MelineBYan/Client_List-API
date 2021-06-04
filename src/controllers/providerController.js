@@ -45,10 +45,12 @@ class ProviderController {
         req.params.id,
         req.body
       );
+      console.log("provider", provider);
       if (!provider) {
         return res.status(404).json({ error: [{ msg: "Provider not found" }] });
       }
       const updated = await Provider.findById(req.params.id);
+
       return res.status(200).json(updated);
     } catch (err) {
       next(err);
